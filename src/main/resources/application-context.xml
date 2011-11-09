@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close">
+    <property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+    <property name="url" value="jdbc:hsqldb:mem:testdb" />
+    <property name="username" value="sa" />
+    <property name="password" value="" />
+  </bean>
+
+  <bean id="mySessionFactory"
+    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="myDataSource" />
+    <property name="annotatedClasses">
+      <list>
+        <value>de.kopis.db.model</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="myReportDao" class="de.kopis.db.dao.ReportDaoImpl">
+    <property name="sessionFactory" ref="mySessionFactory" />
+  </bean>
+</beans>
