@@ -1,18 +1,29 @@
 package de.kopis.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Date;
 
-@Entity
-@Table(name="REPORTS")
+
 public class Report {
-	@Id
-	@GeneratedValue(generator="increment")
 	private Long id;
-
 	private String result;
+	private Date insertTimestamp;
+
+	public Report() {
+	}
+
+	public Report(String result) {
+		this();
+		this.result = result;
+		this.insertTimestamp = new Date();
+	}
+
+	public Date getInsertTimestamp() {
+		return insertTimestamp;
+	}
+
+	public void setInsertTimestamp(Date insertTimestamp) {
+		this.insertTimestamp = insertTimestamp;
+	}
 
 	public Long getId() {
 		return id;
@@ -28,5 +39,10 @@ public class Report {
 
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	@Override
+	public String toString() {
+		return id + " " + result + " " + insertTimestamp;
 	}
 }
